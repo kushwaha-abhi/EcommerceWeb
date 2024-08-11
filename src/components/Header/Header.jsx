@@ -10,8 +10,22 @@ import Cart from "../Cart/Cart"
 import {context} from "../../utils/context"
 
 const Header = () => {
+     const[scrolled,setScrolled]=useState(false);
+    const handleScroll=()=>{
+
+        const offset = window.scrollY;
+        if(offset>200){
+          setScrolled(true);
+        }
+        else{
+            setScrolled(false);
+        }
+    }
+    useEffect(()=>{
+      window.addEventListener("scroll",handleScroll)
+    },[])
     return (
-    <header className="main-header">
+    <header className={`main-header ${scrolled? "sticky-header": ""}`}>
              <div className="header-content">
                 <ul className="left">
                     <Link to="Home">Home</Link>
@@ -22,7 +36,7 @@ const Header = () => {
                 <div className="right">
                     <TbSearch/>
                     <AiOutlineHeart/>
-                    <span className="cart-icon"><CgShoppingCart/></span>
+                    <span className="cart-icon"><span>{8}</span><CgShoppingCart/></span>
                 </div>
              </div>
     </header>
